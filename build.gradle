@@ -22,11 +22,24 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
+    maven {
+        url "https://app.camunda.com/nexus/repository/camunda-bpm-ee/"
+        credentials {
+            username nexusUsername
+            password nexusPassword
+        }
+    }
     mavenCentral()
 }
 
 ext {
-    camunda_version = "7.11.0"
+    camunda_version = "7.11.3-ee"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.camunda.bpm:camunda-bom:$camunda_version"
+    }
 }
 
 dependencies {
@@ -35,10 +48,9 @@ dependencies {
     }
     implementation "org.springframework.boot:spring-boot-starter-undertow"
     implementation "org.springframework.boot:spring-boot-starter-security"
-    //implementation "org.camunda.bpm:camunda-bom:$camunda_version"
 
     implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:3.3.4"
-    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:3.3.4"
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:3.3.4"
 
     implementation "org.postgresql:postgresql"
 

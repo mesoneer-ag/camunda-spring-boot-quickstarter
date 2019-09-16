@@ -64,3 +64,6 @@ atlassian-ide-plugin.xml
 # Project specific
 */.idea
 **/.gradle/
+
+gradle.properties
+camunda-license.txt
