@@ -1,0 +1,46 @@
+plugins {
+    id "java"
+    id "idea"
+    id "application"
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id "org.springframework.boot" version "2.1.8.RELEASE"
+}
+
+group "ch.umb.solutions.consulting"
+version "1.0"
+
+application {
+    mainClassName = "ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessApp"
+}
+
+bootJar {
+    baseName = "app"
+    version =  "1.0.0"
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    camunda_version = "7.11.0"
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    implementation "org.springframework.boot:spring-boot-starter-undertow"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    //implementation "org.camunda.bpm:camunda-bom:$camunda_version"
+
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:3.3.4"
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:3.3.4"
+
+    implementation "org.postgresql:postgresql"
+
+    testCompile group: "junit", name: "junit", version: "4.12"
+}
