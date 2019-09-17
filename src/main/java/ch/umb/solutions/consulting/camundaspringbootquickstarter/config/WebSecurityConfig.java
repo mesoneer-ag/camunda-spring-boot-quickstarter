@@ -1,4 +1,4 @@
-package ch.umb.solutions.consulting.camundaspringbootquickstarter;
+package ch.umb.solutions.consulting.camundaspringbootquickstarter.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,16 +9,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    http
-        .csrf()
-        .disable()
-        .authorizeRequests()
-          .regexMatchers("/rest/(.*)")
-            .authenticated()
-        .and()
-        .httpBasic();
-  }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf()
+                .disable()
+                .authorizeRequests()
+                .regexMatchers("/rest/(.*)")
+                .authenticated()
+                .and()
+                .httpBasic();
+    }
 
 }
