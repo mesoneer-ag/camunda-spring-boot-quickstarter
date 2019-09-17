@@ -11,3 +11,8 @@ camunda.bpm.admin-user:
 spring.security.user:
   name:     demo
   password: demo
+
+camunda:
+  bpm:
+    application:
+      process-archives:
