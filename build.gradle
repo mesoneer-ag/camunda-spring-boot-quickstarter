@@ -43,14 +43,14 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web") {
+    implementation ("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:3.3.4") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    implementation ("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:3.3.4") {
         exclude module: "spring-boot-starter-tomcat"
     }
     implementation "org.springframework.boot:spring-boot-starter-undertow"
     implementation "org.springframework.boot:spring-boot-starter-security"
-
-    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:3.3.4"
-    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:3.3.4"
 
     implementation "org.postgresql:postgresql"
 
