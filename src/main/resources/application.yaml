@@ -11,8 +11,4 @@ camunda.bpm.admin-user:
 spring.security.user:
   name:     demo
   password: demo
-
-camunda:
-  bpm:
-    job-execution:
-      enabled: true
+  
