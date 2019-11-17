@@ -3,7 +3,7 @@ plugins {
     id "idea"
     id "application"
     id "io.spring.dependency-management" version "1.0.8.RELEASE"
-    id "org.springframework.boot" version "2.1.8.RELEASE"
+    id "org.springframework.boot" version "2.2.1.RELEASE"
 }
 
 group "ch.umb.solutions.consulting"
@@ -18,8 +18,8 @@ bootJar {
     version =  "1.0.0"
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
     maven {
@@ -33,7 +33,7 @@ repositories {
 }
 
 ext {
-    camunda_version = "7.11.3-ee"
+    camunda_version = "7.11.5-ee"
 }
 
 dependencyManagement {
@@ -43,16 +43,14 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation ("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:3.3.4") {
+    implementation ("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:3.3.5") {
         exclude module: "spring-boot-starter-tomcat"
     }
-    implementation ("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:3.3.4") {
+    implementation ("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:3.3.5") {
         exclude module: "spring-boot-starter-tomcat"
     }
     implementation "org.springframework.boot:spring-boot-starter-undertow"
     implementation "org.springframework.boot:spring-boot-starter-security"
 
     implementation "org.postgresql:postgresql"
-
-    testCompile group: "junit", name: "junit", version: "4.12"
 }
