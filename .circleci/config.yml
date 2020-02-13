@@ -1,0 +1,70 @@
+# Java Gradle CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:11-buster
+
+    working_directory: ~/repo
+
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+      PROJECT_NAME: "camunda-spring-boot-quickstarter"
+
+    steps:
+      - setup_remote_docker:   # (2)
+          docker_layer_caching: false # (3)
+
+      # use a primary image that already has Docker (recommended)
+      # or install it during a build like we do here
+
+      - checkout
+
+      - restore_cache:
+          name: Restoring cached gradle dependencies
+          keys:
+            - v1-gradle-dir-{{ checksum "build.gradle" }}
+            - v1-gradle-dir-
+
+      - run:
+          name: Downloading dependencies
+          command: gradle dependencies
+
+      - run:
+          name: Build
+          command: gradle build
+
+      - run:
+          name: Collecting artifacts
+          command: |
+            mkdir -p ~/jars
+            mkdir -p ~/libs
+            find . -type f -regex ".*/build/libs/.*jar" -exec cp {} ~/jars/ \;
+            find . -type f -regex ".*/build/libs/.*jar" -exec cp {} ~/libs/ \;
+          when: always
+
+      - store_artifacts:
+          name: Uploading artifacts
+          path: ~/jars
+          destination: artifact-file
+          when: always
+
+      - save_cache:
+          name: Caching gradle dependencies
+          paths:
+            - .gradle
+            - ~/.gradle
+          key: v1-gradle-dir-{{ checksum "build.gradle" }}
+
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build
+      #- build:
+      #context: SonarCloud
