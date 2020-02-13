@@ -33,11 +33,11 @@ jobs:
 
       - run:
           name: Downloading dependencies
-          command: gradle dependencies
+          command: gradle dependencies -PCamundaNexusUser=$CamundaNexusUser -PCamundaNexusPassword=$CamundaNexusPassword
 
       - run:
           name: Build
-          command: gradle build
+          command: gradle build -PCamundaNexusUser=$CamundaNexusUser -PCamundaNexusPassword=$CamundaNexusPassword
 
       - run:
           name: Collecting artifacts

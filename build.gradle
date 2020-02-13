@@ -2,53 +2,40 @@ plugins {
     id "java"
     id "idea"
     id "application"
-    id "io.spring.dependency-management" version "1.0.8.RELEASE"
-    id "org.springframework.boot" version "2.2.1.RELEASE"
+    id "io.spring.dependency-management" version "1.0.9.RELEASE"
+    id "org.springframework.boot" version "2.2.4.RELEASE"
 }
 
 group "ch.umb.solutions.consulting"
-version "1.0"
+version "1.0.0"
 
 application {
     mainClassName = "ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessApp"
 }
 
-bootJar {
-    baseName = "app"
-    version =  "1.0.0"
-}
-
-sourceCompatibility = 11
-targetCompatibility = 11
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     maven {
         url "https://app.camunda.com/nexus/repository/camunda-bpm-ee/"
         credentials {
-            username nexusUsername
-            password nexusPassword
+            username CamundaNexusUser
+            password CamundaNexusPassword
         }
     }
     mavenCentral()
 }
 
-ext {
-    camunda_version = "7.11.5-ee"
-}
-
 dependencyManagement {
     imports {
-        mavenBom "org.camunda.bpm:camunda-bom:$camunda_version"
+        mavenBom "org.camunda.bpm:camunda-bom:7.12.2-ee"
     }
 }
 
 dependencies {
-    implementation ("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:3.3.5") {
-        exclude module: "spring-boot-starter-tomcat"
-    }
-    implementation ("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:3.3.5") {
-        exclude module: "spring-boot-starter-tomcat"
-    }
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:3.4.1"
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:3.4.1"
     implementation "org.springframework.boot:spring-boot-starter-undertow"
     implementation "org.springframework.boot:spring-boot-starter-security"
 
