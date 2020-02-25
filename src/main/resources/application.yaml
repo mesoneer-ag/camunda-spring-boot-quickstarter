@@ -1,8 +1,3 @@
-spring.datasource:
-    url: jdbc:h2:./camunda-db
-    username: sa
-    password: sa
-
 camunda.bpm.admin-user:
   id:       demo
   password: demo
