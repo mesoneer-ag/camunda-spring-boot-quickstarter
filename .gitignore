@@ -65,5 +65,9 @@ atlassian-ide-plugin.xml
 */.idea
 **/.gradle/
 
+# H2 DB
+camunda-db.mv.db
+camunda-db.trace.db
+
 gradle.properties
 camunda-license.txt
