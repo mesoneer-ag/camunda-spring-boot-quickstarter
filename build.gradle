@@ -35,7 +35,7 @@ dependencyManagement {
 
 dependencies {
     implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:3.4.1"
-    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:3.4.1"
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:3.4.3"
     implementation "org.springframework.boot:spring-boot-starter-undertow"
     implementation "org.springframework.boot:spring-boot-starter-security"
 
