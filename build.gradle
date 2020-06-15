@@ -29,15 +29,15 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom "org.camunda.bpm:camunda-bom:7.12.2-ee"
+        mavenBom "org.camunda.bpm:camunda-bom:7.13.0-ee"
     }
 }
 
 dependencies {
-    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:3.4.1"
-    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:3.4.1"
-    implementation "org.springframework.boot:spring-boot-starter-undertow"
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.13.0"
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:7.13.0-ee"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "org.springframework.boot:spring-boot-starter-security"
-
+    implementation "com.h2database:h2"
     implementation "org.postgresql:postgresql"
 }
