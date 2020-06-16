@@ -1,0 +1,3 @@
+ --------------- BEGIN CAMUNDA BPM LICENSE KEY ---------------
+
+ --------------- END CAMUNDA BPM LICENSE KEY ---------------

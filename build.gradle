@@ -37,11 +37,13 @@ dependencies {
     implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.13.0"
     implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:7.13.0-ee"
     implementation "org.springframework.boot:spring-boot-starter-jdbc"
+    implementation "javax.activation:javax.activation-api:1.2.0"
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "com.h2database:h2"
     implementation "org.postgresql:postgresql"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.camunda.bpm.extension:camunda-bpm-assert-scenario:1.0.0"
     testImplementation "org.camunda.bpm.assert:camunda-bpm-assert:6.0.0"
+    //testImplementation "org.camunda.bpm.extension:camunda-bpm-process-test-coverage:0.3.2"
 }
 
