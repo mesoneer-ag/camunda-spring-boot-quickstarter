@@ -5,6 +5,7 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.scenario.ProcessScenario;
 import org.camunda.bpm.scenario.Scenario;
+import org.camunda.bpm.scenario.delegate.TaskDelegate;
 import org.camunda.bpm.scenario.run.ProcessRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,9 +55,7 @@ public class ProcessScenarioTest {
     // when(myProcess.waitsAtReceiveTask(anyString())).thenReturn((messageSubscription) -> {
     //  messageSubscription.receive();
     // });
-     when(myProcess.waitsAtUserTask(anyString())).thenReturn((task) -> {
-      task.complete();
-     });
+     when(myProcess.waitsAtUserTask(anyString())).thenReturn(TaskDelegate::complete);
 
     // OK - everything prepared - let's go and execute the scenario
     Scenario scenario = starter.execute();
