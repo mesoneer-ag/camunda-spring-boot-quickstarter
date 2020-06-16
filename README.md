@@ -9,15 +9,15 @@ CamundaNexusPassword=your_password
 ```
 
 ## H2 Database  
-Add the following dependency for H2 support to build.gradle and remove postgres dependency.
-Also delete application-postgres.yaml if you do not use postgres.
+Add application-h2.yaml to application.yaml
+Add the following dependency to build.gradle and remove postgres dependency.
 ```
 implementation "com.h2database:h2"
 ```
 
 ## Postgres Database  
-Add the following dependency for Postgres support to build.gradle and remove H2 dependency.
-Also delete application-h2.yaml if you do not use h2.
+Add application-postgres.yaml to application.yaml
+Add the following dependency to build.gradle and remove H2 dependency.
 ```
 implementation "org.postgresql:postgresql"
 ```
