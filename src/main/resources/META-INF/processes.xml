@@ -2,9 +2,9 @@
 
 <process-application xmlns="http://www.camunda.org/schema/1.0/ProcessApplication">
 
-    <process-archive name="Job-executer Test">
+    <process-archive name="Job-executor Test">
         <process-engine>default</process-engine>
-        <resource>job-executer-test.bpmn</resource>
+        <resource>job-executor-test.bpmn</resource>
         <properties>
             <property name="isDeleteUponUndeploy">false</property>
             <property name="isScanForProcessDefinitions">false</property>
