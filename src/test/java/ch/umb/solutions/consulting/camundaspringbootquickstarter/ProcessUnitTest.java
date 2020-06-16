@@ -32,7 +32,7 @@ public class ProcessUnitTest {
   }
 
   @Autowired
-  public org.camunda.bpm.engine.ProcessEngine processEngine;
+  org.camunda.bpm.engine.ProcessEngine processEngine;
 
 
   @Autowired
