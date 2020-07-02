@@ -1,6 +1,6 @@
 # camunda-spring-boot-quickstarter
 Dockerized quick-start template for a Camunda EE Spring Boot process applications with Gradle.
-Simple support for Camunda process testing.
+Support for Camunda process testing including process test coverage report for non Sprint Boot tests.
 
 **Note:** create a *gradle.properties* file in the root project folder with your own appropriate connection variables 
 to get the camunda-bpm-ee artifacts for building the template.

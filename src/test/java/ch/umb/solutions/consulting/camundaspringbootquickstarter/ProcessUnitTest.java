@@ -4,9 +4,12 @@ import ch.umb.solutions.consulting.camundaspringbootquickstarter.mock.LoggerDele
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.Deployment;
+import org.camunda.bpm.engine.test.ProcessEngineRule;
 import org.camunda.bpm.engine.test.mock.Mocks;
-import org.camunda.bpm.spring.boot.starter.test.helper.AbstractProcessEngineRuleTest;
+import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
 import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
@@ -14,9 +17,16 @@ import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
 
 
 /**
- * Test case starting a light-weight in-memory database-backed Process Engine without SpringBoot
+ * Test case starting a light-weight in-memory database-backed Process Engine
+ * including test coverage report in target folder
  */
-public class ProcessUnitTest extends AbstractProcessEngineRuleTest {
+public class ProcessUnitTest  {
+
+    @Rule
+    @ClassRule
+    public static ProcessEngineRule processEngine =
+            TestCoverageProcessEngineRuleBuilder.create()
+                    .withDetailedCoverageLogging().build();
 
     private static final String PROCESS_DEFINITION_KEY = "job-executor-test";
 

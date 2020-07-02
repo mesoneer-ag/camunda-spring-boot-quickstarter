@@ -19,6 +19,7 @@ import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
 
 /**
  * Test case starting an in-memory database-backed Process Engine using SpringBoot
+ * without test coverage report
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {ProcessApp.class})

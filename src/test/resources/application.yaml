@@ -1,4 +1,4 @@
-# Test configuration using spring-boot
+# Test configuration when using spring-boot tests
 
 camunda.bpm:
   job-execution.enabled: false

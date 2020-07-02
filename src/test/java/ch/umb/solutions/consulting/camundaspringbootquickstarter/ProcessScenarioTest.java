@@ -1,45 +1,61 @@
 package ch.umb.solutions.consulting.camundaspringbootquickstarter;
 
 import org.apache.ibatis.logging.LogFactory;
-import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.test.Deployment;
+import org.camunda.bpm.engine.test.ProcessEngineRule;
+import org.camunda.bpm.engine.variable.Variables;
+import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
 import org.camunda.bpm.scenario.ProcessScenario;
 import org.camunda.bpm.scenario.Scenario;
-import org.camunda.bpm.scenario.delegate.TaskDelegate;
-import org.camunda.bpm.scenario.run.ProcessRunner;
 import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.mockito.Mockito.*;
+import java.util.Map;
+
+import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.assertThat;
+import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.withVariables;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
- * Test case starting an in-memory database-backed Process Engine.
+ * Test case starting an in-memory database-backed Process Engine
+ * including test coverage report in target folder
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {ProcessApp.class})
+@Deployment(resources = {
+        "test1.bpmn"
+})
 public class ProcessScenarioTest {
 
+  @Rule
+  @ClassRule
+  public static ProcessEngineRule rule =
+          TestCoverageProcessEngineRuleBuilder.create()
+                  .withDetailedCoverageLogging().build();
+
+
   private static final String PROCESS_DEFINITION_KEY = "test1";
+
+  /* process variables */
+  private Map<String, Object> variables;
 
   static {
     LogFactory.useSlf4jLogging(); // MyBatis
   }
 
-  @Autowired
-  TaskService taskService;
-
-  @Autowired
-  RuntimeService runtimeService;
 
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
+
+    // common  for all tests
+    when(myProcess.waitsAtUserTask("UserTask_PurchaseItem")).thenReturn(task -> {
+      assertThat(task).isAssignedTo("purchaser");
+      task.complete();
+    });
   }
 
   @Mock
@@ -47,23 +63,62 @@ public class ProcessScenarioTest {
 
   @Test
   public void testHappyPath() {
-    // Define scenarios by using camunda-bpm-assert-scenario:
+    // initialize variables
+    variables = Variables.createVariables()
+            .putValue("request", "Expensive item")
+            .putValue("amount", 10_000);
 
-    ProcessRunner.ExecutableRunner starter = Scenario.run(myProcess)
-        .startByKey(PROCESS_DEFINITION_KEY);
 
-    // when(myProcess.waitsAtReceiveTask(anyString())).thenReturn((messageSubscription) -> {
-    //  messageSubscription.receive();
-    // });
-     when(myProcess.waitsAtUserTask(anyString())).thenReturn(TaskDelegate::complete);
+    // define multiple when conditions
+    when(myProcess.waitsAtUserTask("UserTask_ApproveRequest")).thenReturn( task -> {
+      assertThat(task).isAssignedTo("approver");
+      task.complete(withVariables("approvalType", "MANUALLY_APPROVED"));
+    });
 
-    // OK - everything prepared - let's go and execute the scenario
-    Scenario scenario = starter.execute();
+    // define scenarios by using camunda-bpm-assert-scenario
+    Scenario scenario = Scenario.run(myProcess).startByKey(PROCESS_DEFINITION_KEY, variables).execute();
 
-    // now you can do some assertions   
-    verify(myProcess).hasFinished("EndEvent");
-    //verify(myProcess).waitsAtTimerIntermediateEvent("IntermediateThrowEvent_10zmdtr");
+    // now you can do some assertions
+    verify(myProcess).hasFinished("EndEvent_ItemPurchased");
+    assertThat(scenario.instance(myProcess)).variables().containsEntry("approvalType", "MANUALLY_APPROVED");
+  }
 
+  @Test
+  public void testAutoApproved() {
+    // initialize variables
+    variables = Variables.createVariables()
+            .putValue("request", "Less expensive item")
+            .putValue("amount", 1000);
+
+
+   // define scenarios by using camunda-bpm-assert-scenario
+    Scenario scenario = Scenario.run(myProcess).startByKey(PROCESS_DEFINITION_KEY, variables).execute();
+
+    // now you can do some assertions
+    verify(myProcess).hasFinished("EndEvent_ItemPurchased");
+    assertThat(scenario.instance(myProcess)).variables().containsEntry("approvalType", "AUTO_APPROVED");
+  }
+
+  @Test
+  public void testManuallyDeclined() {
+    // initialize variables
+    variables = Variables.createVariables()
+            .putValue("request", "Expensive item")
+            .putValue("amount", 100_000);
+
+
+    // define multiple when conditions
+    when(myProcess.waitsAtUserTask("UserTask_ApproveRequest")).thenReturn( task -> {
+      assertThat(task).isAssignedTo("approver");
+      task.complete(withVariables("approvalType", "MANUALLY_DECLINED"));
+    });
+
+    // define scenarios by using camunda-bpm-assert-scenario
+    Scenario scenario = Scenario.run(myProcess).startByKey(PROCESS_DEFINITION_KEY, variables).execute();
+
+    // now you can do some assertions
+    verify(myProcess).hasFinished("Event_RequestDeclined");
+    assertThat(scenario.instance(myProcess)).variables().containsEntry("approvalType", "MANUALLY_DECLINED");
   }
 
 }
