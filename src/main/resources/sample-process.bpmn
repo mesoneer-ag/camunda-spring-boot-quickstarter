@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_17w34co" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.0.0">
-  <bpmn:process id="test1" name="test1" isExecutable="true">
+  <bpmn:process id="sample-process" name="sample-process" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="started">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="amount" label="amount" type="long" defaultValue="10000" />
+          <camunda:formField id="request" label="Requested item" type="string" defaultValue="expensive item" />
+        </camunda:formData>
+      </bpmn:extensionElements>
       <bpmn:outgoing>Flow_0syirrd</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_0syirrd" sourceRef="StartEvent_1" targetRef="Gateway_AutoApproval" />
+    <bpmn:sequenceFlow id="Flow_0syirrd" sourceRef="StartEvent_1" targetRef="ServiceTask_GetItemDetails" />
     <bpmn:endEvent id="EndEvent_ItemPurchased" name="item purchased">
-      <bpmn:incoming>Flow_111z6sg</bpmn:incoming>
+      <bpmn:incoming>Flow_0iickls</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:userTask id="UserTask_ApproveRequest" name="Approve request" camunda:assignee="approver">
       <bpmn:incoming>Flow_1juyw35</bpmn:incoming>
       <bpmn:outgoing>Flow_0eayhlc</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_111z6sg" sourceRef="UserTask_PurchaseItem" targetRef="EndEvent_ItemPurchased" />
+    <bpmn:sequenceFlow id="Flow_111z6sg" sourceRef="UserTask_PurchaseItem" targetRef="ServiceTask_UpdateERP" />
     <bpmn:userTask id="UserTask_PurchaseItem" name="Purchase item" camunda:assignee="purchaser">
       <bpmn:incoming>Flow_0n89lqm</bpmn:incoming>
       <bpmn:outgoing>Flow_111z6sg</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:exclusiveGateway id="Gateway_AutoApproval" name="auto approval ?" default="Flow_1juyw35">
-      <bpmn:incoming>Flow_0syirrd</bpmn:incoming>
+      <bpmn:incoming>Flow_1js4fiu</bpmn:incoming>
       <bpmn:outgoing>Flow_1juyw35</bpmn:outgoing>
       <bpmn:outgoing>Flow_1826kp1</bpmn:outgoing>
     </bpmn:exclusiveGateway>
@@ -66,104 +72,128 @@
       <bpmn:outgoing>Flow_0n89lqm</bpmn:outgoing>
     </bpmn:intermediateThrowEvent>
     <bpmn:sequenceFlow id="Flow_0n89lqm" sourceRef="Event_1pmvaq0" targetRef="UserTask_PurchaseItem" />
+    <bpmn:sequenceFlow id="Flow_1js4fiu" sourceRef="ServiceTask_GetItemDetails" targetRef="Gateway_AutoApproval" />
+    <bpmn:serviceTask id="ServiceTask_GetItemDetails" name="Get item details" camunda:delegateExpression="${loggerDelegate}">
+      <bpmn:incoming>Flow_0syirrd</bpmn:incoming>
+      <bpmn:outgoing>Flow_1js4fiu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0iickls" sourceRef="ServiceTask_UpdateERP" targetRef="EndEvent_ItemPurchased" />
+    <bpmn:serviceTask id="ServiceTask_UpdateERP" name="Update ERP" camunda:delegateExpression="${loggerDelegate}">
+      <bpmn:incoming>Flow_111z6sg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0iickls</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="test1">
-      <bpmndi:BPMNEdge id="Flow_0syirrd_di" bpmnElement="Flow_0syirrd">
-        <di:waypoint x="215" y="207" />
-        <di:waypoint x="254" y="207" />
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="sample-process">
+      <bpmndi:BPMNEdge id="Flow_0iickls_di" bpmnElement="Flow_0iickls">
+        <di:waypoint x="1210" y="207" />
+        <di:waypoint x="1252" y="207" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_111z6sg_di" bpmnElement="Flow_111z6sg">
-        <di:waypoint x="940" y="207" />
-        <di:waypoint x="982" y="207" />
+      <bpmndi:BPMNEdge id="Flow_1js4fiu_di" bpmnElement="Flow_1js4fiu">
+        <di:waypoint x="340" y="207" />
+        <di:waypoint x="374" y="207" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1juyw35_di" bpmnElement="Flow_1juyw35">
-        <di:waypoint x="304" y="207" />
-        <di:waypoint x="348" y="207" />
+      <bpmndi:BPMNEdge id="Flow_0n89lqm_di" bpmnElement="Flow_0n89lqm">
+        <di:waypoint x="916" y="207" />
+        <di:waypoint x="960" y="207" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14aei59_di" bpmnElement="Flow_14aei59">
+        <di:waypoint x="637" y="232" />
+        <di:waypoint x="637" y="310" />
+        <di:waypoint x="706" y="310" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="320" y="189" width="13" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1826kp1_di" bpmnElement="Flow_1826kp1">
-        <di:waypoint x="279" y="182" />
-        <di:waypoint x="279" y="100" />
-        <di:waypoint x="691" y="100" />
-        <di:waypoint x="691" y="182" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="286" y="83" width="17" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0eayhlc_di" bpmnElement="Flow_0eayhlc">
-        <di:waypoint x="448" y="207" />
-        <di:waypoint x="492" y="207" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_19ccx1t_di" bpmnElement="Flow_19ccx1t">
-        <di:waypoint x="542" y="207" />
-        <di:waypoint x="666" y="207" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="568" y="189" width="17" height="14" />
+          <dc:Bounds x="646" y="268" width="13" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0cocszf_di" bpmnElement="Flow_0cocszf">
-        <di:waypoint x="716" y="207" />
-        <di:waypoint x="760" y="207" />
+        <di:waypoint x="836" y="207" />
+        <di:waypoint x="880" y="207" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_14aei59_di" bpmnElement="Flow_14aei59">
-        <di:waypoint x="517" y="232" />
-        <di:waypoint x="517" y="310" />
-        <di:waypoint x="586" y="310" />
+      <bpmndi:BPMNEdge id="Flow_19ccx1t_di" bpmnElement="Flow_19ccx1t">
+        <di:waypoint x="662" y="207" />
+        <di:waypoint x="786" y="207" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="526" y="268" width="13" height="14" />
+          <dc:Bounds x="688" y="189" width="17" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0n89lqm_di" bpmnElement="Flow_0n89lqm">
-        <di:waypoint x="796" y="207" />
-        <di:waypoint x="840" y="207" />
+      <bpmndi:BPMNEdge id="Flow_0eayhlc_di" bpmnElement="Flow_0eayhlc">
+        <di:waypoint x="568" y="207" />
+        <di:waypoint x="612" y="207" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1826kp1_di" bpmnElement="Flow_1826kp1">
+        <di:waypoint x="399" y="182" />
+        <di:waypoint x="399" y="100" />
+        <di:waypoint x="811" y="100" />
+        <di:waypoint x="811" y="182" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="406" y="83" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1juyw35_di" bpmnElement="Flow_1juyw35">
+        <di:waypoint x="424" y="207" />
+        <di:waypoint x="468" y="207" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="440" y="189" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_111z6sg_di" bpmnElement="Flow_111z6sg">
+        <di:waypoint x="1060" y="207" />
+        <di:waypoint x="1110" y="207" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0syirrd_di" bpmnElement="Flow_0syirrd">
+        <di:waypoint x="208" y="207" />
+        <di:waypoint x="240" y="207" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="179" y="189" width="36" height="36" />
+        <dc:Bounds x="172" y="189" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="180" y="232" width="34" height="14" />
+          <dc:Bounds x="173" y="232" width="34" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1c8nqb4_di" bpmnElement="EndEvent_ItemPurchased">
-        <dc:Bounds x="982" y="189" width="36" height="36" />
+        <dc:Bounds x="1252" y="189" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="962" y="232" width="76" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0up2iot_di" bpmnElement="Gateway_AutoApproval" isMarkerVisible="true">
-        <dc:Bounds x="254" y="182" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="241" y="242" width="77" height="14" />
+          <dc:Bounds x="1232" y="232" width="76" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1a7h81k_di" bpmnElement="UserTask_ApproveRequest">
-        <dc:Bounds x="348" y="167" width="100" height="80" />
+        <dc:Bounds x="468" y="167" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_08izc2o_di" bpmnElement="Gateway_ManuallyApproved" isMarkerVisible="true">
-        <dc:Bounds x="492" y="182" width="50" height="50" />
+      <bpmndi:BPMNShape id="Activity_1hviuln_di" bpmnElement="UserTask_PurchaseItem">
+        <dc:Bounds x="960" y="167" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0up2iot_di" bpmnElement="Gateway_AutoApproval" isMarkerVisible="true">
+        <dc:Bounds x="374" y="182" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="491" y="152" width="53" height="27" />
+          <dc:Bounds x="362" y="242" width="76" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0df0ml4_di" bpmnElement="Event_RequestDeclined">
-        <dc:Bounds x="586" y="292" width="36" height="36" />
+      <bpmndi:BPMNShape id="Gateway_08izc2o_di" bpmnElement="Gateway_ManuallyApproved" isMarkerVisible="true">
+        <dc:Bounds x="612" y="182" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="563" y="335" width="82" height="14" />
+          <dc:Bounds x="612" y="152" width="52" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0ok4tdm_di" bpmnElement="Gateway_0ok4tdm" isMarkerVisible="true">
-        <dc:Bounds x="666" y="182" width="50" height="50" />
+        <dc:Bounds x="786" y="182" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1pmvaq0_di" bpmnElement="Event_1pmvaq0">
-        <dc:Bounds x="760" y="189" width="36" height="36" />
+      <bpmndi:BPMNShape id="Event_0df0ml4_di" bpmnElement="Event_RequestDeclined">
+        <dc:Bounds x="706" y="292" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="755" y="232" width="47" height="14" />
+          <dc:Bounds x="684" y="335" width="81" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1hviuln_di" bpmnElement="UserTask_PurchaseItem">
-        <dc:Bounds x="840" y="167" width="100" height="80" />
+      <bpmndi:BPMNShape id="Event_1pmvaq0_di" bpmnElement="Event_1pmvaq0">
+        <dc:Bounds x="880" y="189" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="876" y="232" width="46" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15l8ker_di" bpmnElement="ServiceTask_GetItemDetails">
+        <dc:Bounds x="240" y="167" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_16ccij0_di" bpmnElement="ServiceTask_UpdateERP">
+        <dc:Bounds x="1110" y="167" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

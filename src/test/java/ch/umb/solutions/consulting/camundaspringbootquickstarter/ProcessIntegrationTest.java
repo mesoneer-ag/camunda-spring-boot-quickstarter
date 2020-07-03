@@ -1,6 +1,5 @@
 package ch.umb.solutions.consulting.camundaspringbootquickstarter;
 
-import ch.umb.solutions.consulting.camundaspringbootquickstarter.mock.LoggerDelegateMock;
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -12,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static ch.umb.solutions.consulting.camundaspringbootquickstarter.mock.MockHelper.registerMock;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
 
 
@@ -40,7 +38,7 @@ public class ProcessIntegrationTest {
 
   @Before
   public void registerMocks() {
-    registerMock(context, "loggerDelegate", LoggerDelegateMock.class);
+      //registerMock(context, "loggerDelegate", LoggerDelegateMock.class);
   }
 
   @Test

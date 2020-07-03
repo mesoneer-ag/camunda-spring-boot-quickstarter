@@ -1,8 +1,10 @@
 package ch.umb.solutions.consulting.camundaspringbootquickstarter;
 
+import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.LoggerDelegate;
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
+import org.camunda.bpm.engine.test.mock.Mocks;
 import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
 import org.camunda.bpm.scenario.ProcessScenario;
@@ -26,7 +28,7 @@ import static org.mockito.Mockito.when;
  * including test coverage report in target folder
  */
 @Deployment(resources = {
-        "test1.bpmn"
+        "sample-process.bpmn"
 })
 public class ProcessScenarioTest {
 
@@ -37,7 +39,7 @@ public class ProcessScenarioTest {
                   .withDetailedCoverageLogging().build();
 
 
-  private static final String PROCESS_DEFINITION_KEY = "test1";
+  private static final String PROCESS_DEFINITION_KEY = "sample-process";
 
   /* process variables */
   private Map<String, Object> variables;
@@ -49,7 +51,11 @@ public class ProcessScenarioTest {
 
   @Before
   public void setup() {
+    // setup Mocks
     MockitoAnnotations.initMocks(this);
+
+    // register delegates
+    Mocks.register("loggerDelegate", new LoggerDelegate());
 
     // common  for all tests
     when(myProcess.waitsAtUserTask("UserTask_PurchaseItem")).thenReturn(task -> {

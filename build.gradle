@@ -29,13 +29,13 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom "org.camunda.bpm:camunda-bom:7.13.0-ee"
+        mavenBom "org.camunda.bpm:camunda-bom:7.13.1-ee"
     }
 }
 
 dependencies {
     implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.13.0"
-    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:7.13.0-ee"
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:7.13.1-ee"
     implementation "org.springframework.boot:spring-boot-starter-jdbc"
     implementation "javax.activation:javax.activation-api:1.2.0"
     implementation "org.springframework.boot:spring-boot-starter-security"
@@ -44,6 +44,8 @@ dependencies {
     testImplementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-test:7.13.0"
     testImplementation "org.camunda.bpm.extension:camunda-bpm-assert-scenario:1.0.0"
     testImplementation "org.camunda.bpm.extension:camunda-bpm-process-test-coverage:0.3.2"
+    // for development only, exclude from production build
+    runtimeOnly "org.springframework.boot:spring-boot-devtools"
 }
 
 clean {
