@@ -16,6 +16,11 @@ application {
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
+ext {
+    camundaVersionCE = "7.13.0"
+    camundaVersionEE = "7.13.1-ee"
+}
+
 repositories {
     maven {
         url "https://app.camunda.com/nexus/repository/camunda-bpm-ee/"
@@ -29,19 +34,19 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom "org.camunda.bpm:camunda-bom:7.13.1-ee"
+        mavenBom "org.camunda.bpm:camunda-bom:${camundaVersionEE}"
     }
 }
 
 dependencies {
-    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:7.13.0"
-    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:7.13.1-ee"
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:${camundaVersionCE}"
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:${camundaVersionEE}"
     implementation "org.springframework.boot:spring-boot-starter-jdbc"
     implementation "javax.activation:javax.activation-api:1.2.0"
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "com.h2database:h2"
     implementation "org.postgresql:postgresql"
-    testImplementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-test:7.13.0"
+    testImplementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-test:${camundaVersionCE}"
     testImplementation "org.camunda.bpm.extension:camunda-bpm-assert-scenario:1.0.0"
     testImplementation "org.camunda.bpm.extension:camunda-bpm-process-test-coverage:0.3.2"
     // for development only, exclude from production build

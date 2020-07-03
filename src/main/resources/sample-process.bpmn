@@ -74,6 +74,11 @@
     <bpmn:sequenceFlow id="Flow_0n89lqm" sourceRef="Event_1pmvaq0" targetRef="UserTask_PurchaseItem" />
     <bpmn:sequenceFlow id="Flow_1js4fiu" sourceRef="ServiceTask_GetItemDetails" targetRef="Gateway_AutoApproval" />
     <bpmn:serviceTask id="ServiceTask_GetItemDetails" name="Get item details" camunda:delegateExpression="${loggerDelegate}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="logMessage">Started the process with amount: ${amount}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0syirrd</bpmn:incoming>
       <bpmn:outgoing>Flow_1js4fiu</bpmn:outgoing>
     </bpmn:serviceTask>

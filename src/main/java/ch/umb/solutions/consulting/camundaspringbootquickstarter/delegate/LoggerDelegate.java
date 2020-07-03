@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import static ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessConstants.VARIABLE_LOGMESSAGE;
+
 /**
  * Simple Logger delegate implementation that can be used
  * from within a BPMN 2.0 Service Task.
@@ -17,8 +19,9 @@ public class LoggerDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution)  {
-        logger.info("invoked by"
-                + ": processDefinitionName=" + execution.getProcessEngineServices().getRepositoryService().getProcessDefinition(execution.getProcessDefinitionId()).getName()
+        String logMessage = (String) execution.getVariable(VARIABLE_LOGMESSAGE);
+        logger.info("logMessage='" + logMessage + "'"
+                + ", processDefinitionName=" + execution.getProcessEngineServices().getRepositoryService().getProcessDefinition(execution.getProcessDefinitionId()).getName()
                 + ", processDefinitionId=" + execution.getProcessDefinitionId()
                 + ", activtyId=" + execution.getCurrentActivityId()
                 + ", activtyName='" + execution.getCurrentActivityName() + "'"

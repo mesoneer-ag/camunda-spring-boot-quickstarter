@@ -18,6 +18,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Map;
 
+import static ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessConstants.PROCESS_DEFINITION_SAMPLE_PROCESS;
+import static ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessConstants.VARIABLE_AMOUNT;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.assertThat;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.withVariables;
 import static org.mockito.Mockito.verify;
@@ -39,7 +41,7 @@ public class ProcessScenarioTest {
                   .withDetailedCoverageLogging().build();
 
 
-  private static final String PROCESS_DEFINITION_KEY = "sample-process";
+  private static final String PROCESS_DEFINITION_KEY = PROCESS_DEFINITION_SAMPLE_PROCESS;
 
   /* process variables */
   private Map<String, Object> variables;
@@ -72,7 +74,7 @@ public class ProcessScenarioTest {
     // initialize variables
     variables = Variables.createVariables()
             .putValue("request", "Expensive item")
-            .putValue("amount", 10_000);
+            .putValue(VARIABLE_AMOUNT, 10_000);
 
 
     // define multiple when conditions
@@ -94,7 +96,7 @@ public class ProcessScenarioTest {
     // initialize variables
     variables = Variables.createVariables()
             .putValue("request", "Less expensive item")
-            .putValue("amount", 1000);
+            .putValue(VARIABLE_AMOUNT, 1000);
 
 
    // define scenarios by using camunda-bpm-assert-scenario
@@ -110,7 +112,7 @@ public class ProcessScenarioTest {
     // initialize variables
     variables = Variables.createVariables()
             .putValue("request", "Expensive item")
-            .putValue("amount", 100_000);
+            .putValue(VARIABLE_AMOUNT, 100_000);
 
 
     // define multiple when conditions
