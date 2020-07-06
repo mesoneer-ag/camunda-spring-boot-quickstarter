@@ -5,15 +5,12 @@ import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
+import org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions;
 import org.camunda.bpm.engine.test.mock.Mocks;
 import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
-
 
 
 /**
@@ -49,6 +46,12 @@ public class ProcessUnitTest  {
         execute(job(processInstance));
 
         assertThat(processInstance).isEnded();
+    }
+
+    /** Clean up the process engine from ThreadLocal to allow other test cases to run properly */
+    @AfterClass
+    public static void cleanUp() {
+        AbstractAssertions.reset();
     }
 
 }
