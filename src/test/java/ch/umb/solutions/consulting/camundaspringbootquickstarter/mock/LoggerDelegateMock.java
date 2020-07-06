@@ -1,27 +1,19 @@
-package ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate;
+package ch.umb.solutions.consulting.camundaspringbootquickstarter.mock;
 
+import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.LoggerDelegate;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
-import static ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessConstants.VARIABLE_LOGMESSAGE;
-
-/**
- * Simple Logger delegate implementation that can be used
- * from within a BPMN 2.0 Service Task.
- */
-@Component
-public class LoggerDelegate implements JavaDelegate {
+public class LoggerDelegateMock implements JavaDelegate {
 
     final static Logger logger = LoggerFactory.getLogger(LoggerDelegate.class);
 
     @Override
     public void execute(DelegateExecution execution)  {
-        String logMessage = (String) execution.getVariable(VARIABLE_LOGMESSAGE);
-        logger.info("logMessage='" + logMessage + "'"
-                + ", processDefinitionName=" + execution.getProcessEngineServices().getRepositoryService().getProcessDefinition(execution.getProcessDefinitionId()).getName()
+        logger.info("mock invoked by"
+                + ": processDefinitionName=" + execution.getProcessEngineServices().getRepositoryService().getProcessDefinition(execution.getProcessDefinitionId()).getName()
                 + ", processDefinitionId=" + execution.getProcessDefinitionId()
                 + ", activtyId=" + execution.getCurrentActivityId()
                 + ", activtyName='" + execution.getCurrentActivityName() + "'"
@@ -29,5 +21,4 @@ public class LoggerDelegate implements JavaDelegate {
                 + ", businessKey=" + execution.getProcessBusinessKey()
                 + ", executionId=" + execution.getId());
     }
-
 }
