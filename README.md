@@ -1,5 +1,5 @@
 # camunda-spring-boot-quickstarter
-Dockerized quick-start template for a Camunda EE Spring Boot process applications with Gradle.
+Dockerized quick-start template for a Camunda EE 7.13.1 Spring Boot process applications with Gradle.
 Support for Camunda process testing including process test coverage report for non Sprint Boot tests.
 
 ## Getting Started
