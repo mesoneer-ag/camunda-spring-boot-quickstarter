@@ -4,15 +4,13 @@ import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.Logger
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
+import org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions;
 import org.camunda.bpm.engine.test.mock.Mocks;
 import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
 import org.camunda.bpm.scenario.ProcessScenario;
 import org.camunda.bpm.scenario.Scenario;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -50,7 +48,6 @@ public class ProcessScenarioTest {
     LogFactory.useSlf4jLogging(); // MyBatis
   }
 
-
   @Before
   public void setup() {
     // setup Mocks
@@ -76,7 +73,6 @@ public class ProcessScenarioTest {
             .putValue("request", "Expensive item")
             .putValue(VARIABLE_AMOUNT, 10_000);
 
-
     // define multiple when conditions
     when(myProcess.waitsAtUserTask("UserTask_ApproveRequest")).thenReturn( task -> {
       assertThat(task).isAssignedTo("approver");
@@ -98,7 +94,6 @@ public class ProcessScenarioTest {
             .putValue("request", "Less expensive item")
             .putValue(VARIABLE_AMOUNT, 1000);
 
-
    // define scenarios by using camunda-bpm-assert-scenario
     Scenario scenario = Scenario.run(myProcess).startByKey(PROCESS_DEFINITION_KEY, variables).execute();
 
@@ -114,7 +109,6 @@ public class ProcessScenarioTest {
             .putValue("request", "Expensive item")
             .putValue(VARIABLE_AMOUNT, 100_000);
 
-
     // define multiple when conditions
     when(myProcess.waitsAtUserTask("UserTask_ApproveRequest")).thenReturn( task -> {
       assertThat(task).isAssignedTo("approver");
@@ -127,6 +121,12 @@ public class ProcessScenarioTest {
     // now you can do some assertions
     verify(myProcess).hasFinished("Event_RequestDeclined");
     assertThat(scenario.instance(myProcess)).variables().containsEntry("approvalType", "MANUALLY_DECLINED");
+  }
+
+  /** Clean up the process engine from ThreadLocal to allow other test cases to run properly */
+  @AfterClass
+  public static void cleanUp() {
+    AbstractAssertions.reset();
   }
 
 }
