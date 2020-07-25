@@ -70,4 +70,4 @@ camunda-db.mv.db
 camunda-db.trace.db
 
 gradle.properties
-camunda-license.txt
+**/camunda-license.txt
