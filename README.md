@@ -1,5 +1,5 @@
 # camunda-spring-boot-quickstarter
-Dockerized quick-start template for a Camunda EE 7.13.1 Spring Boot process applications with Gradle.
+Dockerized quick-start template for a Camunda EE 7.13.3 Spring Boot process applications with Gradle.
 Support for Camunda process testing including process test coverage report for non Sprint Boot tests.
 
 ## Getting Started
@@ -8,6 +8,15 @@ to get the camunda-bpm-ee artifacts for building the template.
 ```
 CamundaNexusUser=your_username
 CamundaNexusPassword=your_password
+```
+To enable Camunda BPM enterprise features, add your Camunda enterprise license key file
+ *camunda-license.txt* to *resources* folder
+
+```
+--------------- BEGIN CAMUNDA BPM LICENSE KEY ---------------
+abcdeOluEJmmJIacJIgdizbHQVM8LRxMswO+bbsx9v95QAfnRC+l1o=;
+Your Name;unlimited
+--------------- END CAMUNDA BPM LICENSE KEY ---------------
 ```
 
 ### H2 Database  

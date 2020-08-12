@@ -5,7 +5,7 @@ USER appuser
 
 WORKDIR /home/appuser
 
-ENV JAR_NAME app-1.0.0.jar
+ENV JAR_NAME camunda-spring-boot-quickstarter-1.0.0.jar
 ENV JAVA_OPTS -Xms128m -Xmx300m -Xss512k -XX:CICompilerCount=2 -XX:+UseContainerSupport
 
 COPY build/libs/${JAR_NAME} ${JAR_NAME}

@@ -6,6 +6,10 @@ plugins {
     id "org.springframework.boot" version "2.3.2.RELEASE"
 }
 
+// Camunda Spring Boot version compatability
+// https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/version-compatibility/
+
+
 group "ch.umb.solutions.consulting"
 version "1.0.0"
 
@@ -18,7 +22,7 @@ targetCompatibility = JavaVersion.VERSION_11
 
 ext {
     camundaVersionCE = "7.13.0"
-    camundaVersionEE = "7.13.1-ee"
+    camundaVersionEE = "7.13.3-ee"
 }
 
 repositories {
