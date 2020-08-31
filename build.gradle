@@ -22,7 +22,7 @@ targetCompatibility = JavaVersion.VERSION_11
 
 ext {
     camundaVersionCE = "7.13.0"
-    camundaVersionEE = "7.13.3-ee"
+    camundaVersionEE = "7.13.4-ee"
 }
 
 repositories {
