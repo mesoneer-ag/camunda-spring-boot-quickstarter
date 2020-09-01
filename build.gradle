@@ -25,7 +25,9 @@ ext {
     camundaVersionEE = "7.13.4-ee"
 }
 
+
 repositories {
+    // only required for Camunda EE
     maven {
         url "https://app.camunda.com/nexus/repository/camunda-bpm-ee/"
         credentials {
@@ -38,20 +40,29 @@ repositories {
 
 dependencyManagement {
     imports {
+        // use ${camundaVersionEE} for Camunda EE or ${camundaVersionCE} for Camunda CE version
         mavenBom "org.camunda.bpm:camunda-bom:${camundaVersionEE}"
     }
 }
 
 dependencies {
-    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:${camundaVersionCE}"
+    // Camunda EE
     implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:${camundaVersionEE}"
-    
+    // Camunda CE
+    // implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:${camundaVersionCE}"
+
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:${camundaVersionCE}"
     implementation "org.springframework.boot:spring-boot-starter-jdbc"
     implementation "org.springframework.boot:spring-boot-starter-security"
-    
-    implementation "javax.activation:javax.activation-api:1.2.0"
+
+    // either enable h2 or postgres
     implementation "com.h2database:h2"
     implementation "org.postgresql:postgresql"
+
+    // Java 11 missing modules
+    implementation "javax.activation:javax.activation-api:1.2.0"
+    implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
+    implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
     
     testImplementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-test:${camundaVersionCE}"
     testImplementation "org.camunda.bpm.extension:camunda-bpm-assert-scenario:1.0.0"
