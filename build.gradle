@@ -25,7 +25,9 @@ ext {
     camundaVersionEE = "7.13.4-ee"
 }
 
+
 repositories {
+    // only required for Camunda EE
     maven {
         url "https://app.camunda.com/nexus/repository/camunda-bpm-ee/"
         credentials {
@@ -38,14 +40,18 @@ repositories {
 
 dependencyManagement {
     imports {
+        // use ${camundaVersionEE} for Camunda EE or ${camundaVersionCE} for Camunda CE version
         mavenBom "org.camunda.bpm:camunda-bom:${camundaVersionEE}"
     }
 }
 
 dependencies {
-    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:${camundaVersionCE}"
+    // Camunda EE
     implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-ee:${camundaVersionEE}"
-    
+    // Camunda CE
+    // implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:${camundaVersionCE}"
+
+    implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:${camundaVersionCE}"
     implementation "org.springframework.boot:spring-boot-starter-jdbc"
     implementation "org.springframework.boot:spring-boot-starter-security"
 
