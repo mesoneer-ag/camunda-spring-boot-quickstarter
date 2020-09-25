@@ -41,3 +41,10 @@ tests  do not generate a process test coverage report.
 **Note:**
 When running both Camunda spring boot integration tests and Camunda unit tests in parallel,
 please do not forget to clean-up the current process engine using @AfterClass annotation.
+
+### Gradle Wrapper
+This project makes use of the Gradle Wrapper for dependency management. To update the wrapper version adjust the placeholder NEW_GRADLE_VERSION with the desired version and execute the following command in a terminal pointing to the root of this project folder:
+```
+./gradlew wrapper --gradle-version=NEW_GRADLE_VERSION --distribution-type=all
+```
+*New versions can be found on the following GitHub page: [Gradle Releases](https://github.com/gradle/gradle/releases)*

@@ -2,13 +2,13 @@ plugins {
     id "java"
     id "idea"
     id "application"
-    id "io.spring.dependency-management" version "1.0.10.RELEASE"
+    id "com.palantir.docker" version "0.25.0"
     id "org.springframework.boot" version "2.3.4.RELEASE"
+    id "io.spring.dependency-management" version "1.0.10.RELEASE"
 }
 
 // Camunda Spring Boot version compatability
 // https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/version-compatibility/
-
 
 group "ch.umb.solutions.consulting"
 version "1.0.0"
@@ -20,11 +20,16 @@ application {
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
+bootJar {
+    manifest {
+        attributes "Implementation-Version": "${project.version}"
+    }
+}
+
 ext {
     camundaVersionCE = "7.13.0"
     camundaVersionEE = "7.13.5-ee"
 }
-
 
 repositories {
     // only required for Camunda EE
@@ -69,7 +74,14 @@ dependencies {
     testImplementation "org.camunda.bpm.extension:camunda-bpm-process-test-coverage:0.3.2"
     
     // for development only, exclude from production build
-    runtimeOnly "org.springframework.boot:spring-boot-devtools"
+    compileOnly "org.springframework.boot:spring-boot-devtools"
+}
+
+docker {
+    name "${project.group}/${rootProject.name}:${version}"
+    dockerfile file("docker/Dockerfile")
+    files jar.archiveFile
+    buildArgs([JAR_NAME: "${jar.archiveFileName}"])
 }
 
 clean {
