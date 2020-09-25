@@ -1,5 +1,6 @@
 package ch.umb.solutions.consulting.camundaspringbootquickstarter;
 
+import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.SampleDelegate;
 import ch.umb.solutions.consulting.camundaspringbootquickstarter.mock.LoggerDelegateMock;
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.RuntimeService;
@@ -45,6 +46,7 @@ public class ProcessIntegrationTest extends AbstractProcessEngineRuleTest {
   public void registerMocks() {
     // Work around since the Camunda MockExpressionManager does not seem to work
     registerMock(context, "loggerDelegate", LoggerDelegateMock.class);
+    registerMock(context, "sampleDelegate", SampleDelegate.class);
   }
 
   @Test

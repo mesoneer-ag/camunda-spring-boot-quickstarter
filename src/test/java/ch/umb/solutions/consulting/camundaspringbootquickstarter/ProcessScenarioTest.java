@@ -1,6 +1,6 @@
 package ch.umb.solutions.consulting.camundaspringbootquickstarter;
 
-import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.LoggerDelegate;
+import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.*;
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
@@ -55,6 +55,7 @@ public class ProcessScenarioTest {
 
     // register delegates
     Mocks.register("loggerDelegate", new LoggerDelegate());
+    Mocks.register("sampleDelegate", new SampleDelegate());
 
     // common  for all tests
     when(myProcess.waitsAtUserTask("UserTask_PurchaseItem")).thenReturn(task -> {
