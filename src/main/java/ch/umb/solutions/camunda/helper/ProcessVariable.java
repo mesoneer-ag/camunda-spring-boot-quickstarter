@@ -6,7 +6,7 @@ public class ProcessVariable<T> {
 
     private String variableName;
 
-    public ProcessVariable(String variableName) {
+    private ProcessVariable(String variableName) {
         this.variableName = variableName;
     }
 
