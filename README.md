@@ -1,5 +1,5 @@
 # camunda-spring-boot-quickstarter
-Dockerized quick-start template for a Camunda EE 7.13.4 Spring Boot process applications with Gradle.
+Dockerized quick-start template for a Camunda EE 7.13.5 Spring Boot process applications with Gradle.
 For Camunda CE version update *build.gradle* accordingly and disable Camunda EE dependencies.
 Support for Camunda process testing including process test coverage report for non Sprint Boot tests.
 H2 database is used as the default database. Configuration for postgres is provided and can be enabled if needed. 

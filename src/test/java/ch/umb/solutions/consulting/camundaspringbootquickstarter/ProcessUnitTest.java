@@ -1,5 +1,6 @@
 package ch.umb.solutions.consulting.camundaspringbootquickstarter;
 
+import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.SampleDelegate;
 import ch.umb.solutions.consulting.camundaspringbootquickstarter.mock.LoggerDelegateMock;
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -33,7 +34,9 @@ public class ProcessUnitTest  {
 
     @Before
     public void registerCommonDelegates() {
+
         Mocks.register("loggerDelegate", new LoggerDelegateMock());
+        Mocks.register("loggerDelegate", new SampleDelegate());
     }
 
     @Test

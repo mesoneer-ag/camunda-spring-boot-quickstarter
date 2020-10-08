@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import static ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessConstants.VARIABLE_LOGMESSAGE;
+import static ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessVariables.VAR_LOGMESSAGE;
 
 /**
  * Simple Logger delegate implementation that can be used
@@ -18,8 +18,8 @@ public class LoggerDelegate implements JavaDelegate {
     final static Logger logger = LoggerFactory.getLogger(LoggerDelegate.class);
 
     @Override
-    public void execute(DelegateExecution execution)  {
-        String logMessage = (String) execution.getVariable(VARIABLE_LOGMESSAGE);
+    public void execute(DelegateExecution execution) {
+        String logMessage = VAR_LOGMESSAGE.get(execution);
         logger.info("logMessage='" + logMessage + "'"
                 + ", processDefinitionName=" + execution.getProcessEngineServices().getRepositoryService().getProcessDefinition(execution.getProcessDefinitionId()).getName()
                 + ", processDefinitionId=" + execution.getProcessDefinitionId()
