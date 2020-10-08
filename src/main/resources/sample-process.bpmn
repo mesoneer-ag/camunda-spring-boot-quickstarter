@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_17w34co" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
   <bpmn:process id="sample-process" name="sample-process" isExecutable="true">
+    <bpmn:extensionElements>
+      <camunda:executionListener event="start">
+        <camunda:script scriptFormat="javascript">var system = java.lang.System;
+system.out.println('Process start listener executed.');</camunda:script>
+      </camunda:executionListener>
+      <camunda:executionListener event="end">
+        <camunda:script scriptFormat="javascript">var system = java.lang.System;
+system.out.println('Process end listener executed.');
+</camunda:script>
+      </camunda:executionListener>
+    </bpmn:extensionElements>
     <bpmn:startEvent id="StartEvent_1" name="started">
       <bpmn:extensionElements>
         <camunda:formData>
