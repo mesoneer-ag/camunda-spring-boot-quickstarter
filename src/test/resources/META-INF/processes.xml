@@ -2,8 +2,7 @@
 
 <process-application xmlns="http://www.camunda.org/schema/1.0/ProcessApplication">
 
-    <process-archive name="Prcoess-Test">
-        <process-engine>default</process-engine>
+    <process-archive>
         <properties>
             <property name="isDeleteUponUndeploy">true</property>
             <property name="isScanForProcessDefinitions">true</property>

@@ -2,8 +2,12 @@
 
 <process-application xmlns="http://www.camunda.org/schema/1.0/ProcessApplication">
 
-    <process-archive name="default">
-        <process-engine>default</process-engine>
+    <process-archive>
+        <properties>
+            <property name="isScanForProcessDefinitions">true</property>
+        </properties>
     </process-archive>
+
+
 
 </process-application>
