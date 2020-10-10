@@ -3,6 +3,7 @@ package ch.umb.solutions.consulting.camundaspringbootquickstarter;
 import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.LoggerDelegate;
 import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.SampleDelegate;
 import org.apache.ibatis.logging.LogFactory;
+import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
 import org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions;
@@ -130,7 +131,9 @@ public class ProcessScenarioTest {
      */
     @AfterClass
     public static void cleanUp() {
+
         AbstractAssertions.reset();
+        ProcessEngines.destroy();
     }
 
 }

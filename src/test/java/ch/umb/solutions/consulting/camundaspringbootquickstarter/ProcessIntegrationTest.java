@@ -4,6 +4,7 @@ import ch.umb.solutions.consulting.camundaspringbootquickstarter.mock.LoggerDele
 import ch.umb.solutions.consulting.camundaspringbootquickstarter.mock.MockHelper;
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions;
@@ -93,6 +94,7 @@ public class ProcessIntegrationTest  {
     @AfterClass
     public static void cleanUp() {
         AbstractAssertions.reset();
+        ProcessEngines.destroy();
     }
 
 
