@@ -8,4 +8,6 @@ public class ProcessVariables {
     public static final ProcessVariable<String> VAR_SAMPLE = create("sampleVar");
     public static final ProcessVariable<String> VAR_LOGMESSAGE = create("logMessage");
     public static final ProcessVariable<String> VAR_AMOUNT = create("amount");
+
+
 }
