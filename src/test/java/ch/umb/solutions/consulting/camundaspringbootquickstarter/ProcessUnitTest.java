@@ -15,6 +15,7 @@ import org.junit.*;
 import org.mockito.Mock;
 
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 
 /**
@@ -40,6 +41,7 @@ public class ProcessUnitTest  {
 
     @Before
     public void registerCommonDelegates() {
+        initMocks(this);
         Mocks.register("loggerDelegate", new LoggerDelegateMock());
         Mocks.register("loggerDelegate", new SampleDelegate(erpService));
     }
