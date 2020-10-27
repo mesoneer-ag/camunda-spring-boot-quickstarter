@@ -139,8 +139,4 @@ public class ProcessScenarioTest {
         AbstractAssertions.reset();
     }
 
-  @AfterClass
-  public static void clean() {
-    ProcessEngines.getProcessEngines().clear();
-  }
 }
