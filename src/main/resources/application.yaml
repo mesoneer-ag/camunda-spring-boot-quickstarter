@@ -3,6 +3,8 @@ camunda:
     admin-user:
       id: demo
       password: demo
+    filter:
+      create: All Tasks
     generic-properties:
       properties:
         initializeTelemetry: false
