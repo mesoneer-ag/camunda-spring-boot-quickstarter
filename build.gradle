@@ -61,6 +61,9 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-jdbc"
     implementation "org.springframework.boot:spring-boot-starter-security"
 
+    implementation "org.camunda.spin:camunda-spin-dataformat-all"
+    implementation "org.camunda.bpm:camunda-engine-plugin-spin"
+
     // either enable h2 or postgres
     implementation "com.h2database:h2"
     implementation "org.postgresql:postgresql"
