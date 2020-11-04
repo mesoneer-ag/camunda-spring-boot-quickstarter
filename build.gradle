@@ -3,18 +3,18 @@ plugins {
     id "idea"
     id "application"
     id "com.palantir.docker" version "0.25.0"
-    id "org.springframework.boot" version "2.3.4.RELEASE"
+    id "org.springframework.boot" version "2.3.5.RELEASE"
     id "io.spring.dependency-management" version "1.0.10.RELEASE"
 }
 
 // Camunda Spring Boot version compatability
 // https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/version-compatibility/
 
-group "ch.umb.solutions.consulting"
+group "ch.umb.solutions.consulting.camunda"
 version "1.0.0"
 
 application {
-    mainClassName = "ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessApp"
+    mainClassName = "ch.umb.solutions.consulting.camunda.springbootquickstarter.ProcessApp"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -28,7 +28,7 @@ bootJar {
 
 ext {
     camundaVersionCE = "7.14.0"
-    camundaVersionEE = "7.14.0-ee"
+    camundaVersionEE = "7.14.1-ee"
 }
 
 repositories {
@@ -71,7 +71,7 @@ dependencies {
     
     testImplementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-test:${camundaVersionCE}"
     testImplementation "org.camunda.bpm.extension:camunda-bpm-assert-scenario:1.0.0"
-    testImplementation "org.camunda.bpm.extension:camunda-bpm-process-test-coverage:0.3.2"
+    testImplementation "org.camunda.bpm.extension:camunda-bpm-process-test-coverage:0.4.0"
     
     // for development only, exclude from production build
     compileOnly "org.springframework.boot:spring-boot-devtools"
