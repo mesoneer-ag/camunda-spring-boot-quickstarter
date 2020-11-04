@@ -1,6 +1,6 @@
-package ch.umb.solutions.consulting.camundaspringbootquickstarter.service.impl;
+package ch.umb.solutions.consulting.camunda.springbootquickstarter.service.impl;
 
-import ch.umb.solutions.consulting.camundaspringbootquickstarter.service.IErpService;
+import ch.umb.solutions.consulting.camunda.springbootquickstarter.service.IErpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
