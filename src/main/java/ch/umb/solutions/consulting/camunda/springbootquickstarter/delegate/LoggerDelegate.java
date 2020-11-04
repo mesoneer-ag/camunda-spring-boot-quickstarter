@@ -1,4 +1,4 @@
-package ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate;
+package ch.umb.solutions.consulting.camunda.springbootquickstarter.delegate;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import static ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessVariables.VAR_LOGMESSAGE;
+import static ch.umb.solutions.consulting.camunda.springbootquickstarter.ProcessVariables.VAR_LOGMESSAGE;
 
 /**
  * Simple Logger delegate implementation that can be used

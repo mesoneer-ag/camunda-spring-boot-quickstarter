@@ -1,4 +1,4 @@
-package ch.umb.solutions.camunda.helper;
+package ch.umb.solutions.consulting.camunda.helper;
 
 import org.camunda.bpm.engine.delegate.VariableScope;
 

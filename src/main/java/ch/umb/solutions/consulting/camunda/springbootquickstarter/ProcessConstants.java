@@ -1,4 +1,4 @@
-package ch.umb.solutions.consulting.camundaspringbootquickstarter;
+package ch.umb.solutions.consulting.camunda.springbootquickstarter;
 
 public class ProcessConstants {
 

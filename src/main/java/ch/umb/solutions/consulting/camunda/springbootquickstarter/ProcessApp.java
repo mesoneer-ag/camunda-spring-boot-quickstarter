@@ -1,4 +1,4 @@
-package ch.umb.solutions.consulting.camundaspringbootquickstarter;
+package ch.umb.solutions.consulting.camunda.springbootquickstarter;
 
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.springframework.boot.SpringApplication;

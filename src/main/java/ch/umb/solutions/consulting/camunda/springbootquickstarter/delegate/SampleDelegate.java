@@ -1,6 +1,6 @@
-package ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate;
+package ch.umb.solutions.consulting.camunda.springbootquickstarter.delegate;
 
-import ch.umb.solutions.consulting.camundaspringbootquickstarter.service.IErpService;
+import ch.umb.solutions.consulting.camunda.springbootquickstarter.service.IErpService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.slf4j.Logger;
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 
-import static ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessVariables.VAR_SAMPLE;
+import static ch.umb.solutions.consulting.camunda.springbootquickstarter.ProcessVariables.VAR_SAMPLE;
 
 
 /**
- * Sample deleagate
+ * Sample delegate
  */
 @Component
 public class SampleDelegate implements JavaDelegate {

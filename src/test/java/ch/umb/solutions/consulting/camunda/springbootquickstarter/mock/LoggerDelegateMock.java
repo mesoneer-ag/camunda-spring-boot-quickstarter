@@ -1,6 +1,6 @@
-package ch.umb.solutions.consulting.camundaspringbootquickstarter.mock;
+package ch.umb.solutions.consulting.camunda.springbootquickstarter.mock;
 
-import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.LoggerDelegate;
+import ch.umb.solutions.consulting.camunda.springbootquickstarter.delegate.LoggerDelegate;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.slf4j.Logger;

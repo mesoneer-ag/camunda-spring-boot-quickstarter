@@ -1,4 +1,4 @@
-package ch.umb.solutions.consulting.camundaspringbootquickstarter.config;
+package ch.umb.solutions.consulting.camunda.springbootquickstarter.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

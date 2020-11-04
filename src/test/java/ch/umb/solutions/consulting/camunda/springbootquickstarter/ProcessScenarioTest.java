@@ -1,26 +1,25 @@
-package ch.umb.solutions.consulting.camundaspringbootquickstarter;
+package ch.umb.solutions.consulting.camunda.springbootquickstarter;
 
-import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.LoggerDelegate;
-import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.SampleDelegate;
-import ch.umb.solutions.consulting.camundaspringbootquickstarter.service.IErpService;
+import ch.umb.solutions.consulting.camunda.springbootquickstarter.delegate.LoggerDelegate;
+import ch.umb.solutions.consulting.camunda.springbootquickstarter.delegate.SampleDelegate;
+import ch.umb.solutions.consulting.camunda.springbootquickstarter.service.IErpService;
 import org.apache.ibatis.logging.LogFactory;
-import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
-import org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions;
 import org.camunda.bpm.engine.test.mock.Mocks;
 import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
 import org.camunda.bpm.scenario.ProcessScenario;
 import org.camunda.bpm.scenario.Scenario;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.Rule;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Map;
 
-import static ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessConstants.PROCESS_DEFINITION_SAMPLE_PROCESS;
-import static ch.umb.solutions.consulting.camundaspringbootquickstarter.ProcessVariables.VAR_AMOUNT;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.assertThat;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.withVariables;
 import static org.mockito.Mockito.verify;
@@ -42,7 +41,7 @@ public class ProcessScenarioTest {
                     .withDetailedCoverageLogging().build();
 
 
-    private static final String PROCESS_DEFINITION_KEY = PROCESS_DEFINITION_SAMPLE_PROCESS;
+    private static final String PROCESS_DEFINITION_KEY = ProcessConstants.PROCESS_DEFINITION_SAMPLE_PROCESS;
 
 
     @Mock
@@ -79,7 +78,7 @@ public class ProcessScenarioTest {
         // initialize variables
         variables = Variables.createVariables()
                 .putValue("request", "Expensive item")
-                .putValue(VAR_AMOUNT.getVariableName(), 10_000);
+                .putValue(ProcessVariables.VAR_AMOUNT.getVariableName(), 10_000);
 
         // define multiple when conditions
         when(myProcess.waitsAtUserTask("UserTask_ApproveRequest")).thenReturn(task -> {
@@ -100,7 +99,7 @@ public class ProcessScenarioTest {
         // initialize variables
         variables = Variables.createVariables()
                 .putValue("request", "Less expensive item")
-                .putValue(VAR_AMOUNT.getVariableName(), 1000);
+                .putValue(ProcessVariables.VAR_AMOUNT.getVariableName(), 1000);
 
         // define scenarios by using camunda-bpm-assert-scenario
         Scenario scenario = Scenario.run(myProcess).startByKey(PROCESS_DEFINITION_KEY, variables).execute();
@@ -115,7 +114,7 @@ public class ProcessScenarioTest {
         // initialize variables
         variables = Variables.createVariables()
                 .putValue("request", "Expensive item")
-                .putValue(VAR_AMOUNT.getVariableName(), 100_000);
+                .putValue(ProcessVariables.VAR_AMOUNT.getVariableName(), 100_000);
 
         // define multiple when conditions
         when(myProcess.waitsAtUserTask("UserTask_ApproveRequest")).thenReturn(task -> {
@@ -129,14 +128,6 @@ public class ProcessScenarioTest {
         // now you can do some assertions
         verify(myProcess).hasFinished("Event_RequestDeclined");
         assertThat(scenario.instance(myProcess)).variables().containsEntry("approvalType", "MANUALLY_DECLINED");
-    }
-
-    /**
-     * Clean up the process engine from ThreadLocal to allow other test cases to run properly
-     */
-    @AfterClass
-    public static void cleanUp() {
-        AbstractAssertions.reset();
     }
 
 }
