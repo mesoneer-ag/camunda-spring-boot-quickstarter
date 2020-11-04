@@ -11,6 +11,9 @@ public class ProcessVariables {
     public static final ProcessVariable<String> VAR_SAMPLE = create("sampleVar");
     public static final ProcessVariable<String> VAR_LOGMESSAGE = create("logMessage");
     public static final ProcessVariable<String> VAR_AMOUNT = create("amount");
+    public static final ProcessVariable<String> VAR_REQUEST = create("request");
+    public static final ProcessVariable<String> VAR_APPROVAL_TYPE = create("approvalType");
+
 
 
 }
