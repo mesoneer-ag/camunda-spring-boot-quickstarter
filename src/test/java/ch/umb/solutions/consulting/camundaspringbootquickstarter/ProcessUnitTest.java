@@ -2,7 +2,9 @@ package ch.umb.solutions.consulting.camundaspringbootquickstarter;
 
 import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.SampleDelegate;
 import ch.umb.solutions.consulting.camundaspringbootquickstarter.mock.LoggerDelegateMock;
+import ch.umb.solutions.consulting.camundaspringbootquickstarter.service.IErpService;
 import org.apache.ibatis.logging.LogFactory;
+import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
@@ -10,8 +12,10 @@ import org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions;
 import org.camunda.bpm.engine.test.mock.Mocks;
 import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
 import org.junit.*;
+import org.mockito.Mock;
 
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 
 /**
@@ -19,6 +23,9 @@ import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
  * including test coverage report in target folder
  */
 public class ProcessUnitTest  {
+
+    @Mock
+    IErpService erpService;
 
     @Rule
     @ClassRule
@@ -34,9 +41,9 @@ public class ProcessUnitTest  {
 
     @Before
     public void registerCommonDelegates() {
-
+        initMocks(this);
         Mocks.register("loggerDelegate", new LoggerDelegateMock());
-        Mocks.register("loggerDelegate", new SampleDelegate());
+        Mocks.register("loggerDelegate", new SampleDelegate(erpService));
     }
 
     @Test
@@ -50,7 +57,10 @@ public class ProcessUnitTest  {
 
         assertThat(processInstance).isEnded();
     }
-
+    @AfterClass
+    public static void clean() {
+        ProcessEngines.getProcessEngines().clear();
+    }
     /** Clean up the process engine from ThreadLocal to allow other test cases to run properly */
     @AfterClass
     public static void cleanUp() {

@@ -2,7 +2,9 @@ package ch.umb.solutions.consulting.camundaspringbootquickstarter;
 
 import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.LoggerDelegate;
 import ch.umb.solutions.consulting.camundaspringbootquickstarter.delegate.SampleDelegate;
+import ch.umb.solutions.consulting.camundaspringbootquickstarter.service.IErpService;
 import org.apache.ibatis.logging.LogFactory;
+import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
 import org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions;
@@ -42,6 +44,10 @@ public class ProcessScenarioTest {
 
     private static final String PROCESS_DEFINITION_KEY = PROCESS_DEFINITION_SAMPLE_PROCESS;
 
+
+    @Mock
+    IErpService erpService;
+
     /* process variables */
     private Map<String, Object> variables;
 
@@ -56,7 +62,7 @@ public class ProcessScenarioTest {
 
         // register delegates
         Mocks.register("loggerDelegate", new LoggerDelegate());
-        Mocks.register("sampleDelegate", new SampleDelegate());
+        Mocks.register("sampleDelegate", new SampleDelegate(erpService));
 
         // common  for all tests
         when(myProcess.waitsAtUserTask("UserTask_PurchaseItem")).thenReturn(task -> {
