@@ -18,12 +18,12 @@ system.out.println('Process end listener executed.');</camunda:script>
     <bpmn:endEvent id="EndEvent_ItemPurchased" name="item purchased">
       <bpmn:incoming>Flow_0iickls</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="UserTask_ApproveRequest" name="Approve request" camunda:formKey="embedded:app:forms/approval-form.html" camunda:assignee="approver">
+    <bpmn:userTask id="UserTask_ApproveRequest" name="Approve request" camunda:formKey="embedded:app:forms/approval-form.html" camunda:candidateGroups="approver">
       <bpmn:incoming>Flow_1juyw35</bpmn:incoming>
       <bpmn:outgoing>Flow_0eayhlc</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_111z6sg" sourceRef="UserTask_PurchaseItem" targetRef="ServiceTask_UpdateERP" />
-    <bpmn:userTask id="UserTask_PurchaseItem" name="Purchase item" camunda:assignee="purchaser">
+    <bpmn:userTask id="UserTask_PurchaseItem" name="Purchase item" camunda:candidateGroups="purchaser">
       <bpmn:incoming>Flow_0n89lqm</bpmn:incoming>
       <bpmn:outgoing>Flow_111z6sg</bpmn:outgoing>
     </bpmn:userTask>

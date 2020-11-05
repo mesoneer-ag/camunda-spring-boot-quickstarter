@@ -65,7 +65,7 @@ public class ProcessScenarioTest {
 
         // common  for all tests
         when(myProcess.waitsAtUserTask("UserTask_PurchaseItem")).thenReturn(task -> {
-            assertThat(task).isAssignedTo("purchaser");
+            assertThat(task).hasCandidateGroup("purchaser");
             task.complete();
         });
     }
@@ -82,7 +82,7 @@ public class ProcessScenarioTest {
 
         // define multiple when conditions
         when(myProcess.waitsAtUserTask("UserTask_ApproveRequest")).thenReturn(task -> {
-            assertThat(task).isAssignedTo("approver");
+            assertThat(task).hasCandidateGroup("approver");
             task.complete(withVariables("approvalType", "MANUALLY_APPROVED"));
         });
 
@@ -118,7 +118,7 @@ public class ProcessScenarioTest {
 
         // define multiple when conditions
         when(myProcess.waitsAtUserTask("UserTask_ApproveRequest")).thenReturn(task -> {
-            assertThat(task).isAssignedTo("approver");
+            assertThat(task).hasCandidateGroup("approver");
             task.complete(withVariables("approvalType", "MANUALLY_DECLINED"));
         });
 

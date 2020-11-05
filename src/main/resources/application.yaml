@@ -1,13 +1,15 @@
-camunda:
-  bpm:
-    admin-user:
-      id: demo
-      password: demo
-    filter:
-      create: All Tasks
-    generic-properties:
-      properties:
-        initializeTelemetry: false
+camunda.bpm:
+  admin-user:
+    id: demo
+    password: demo
+  filter:
+    create: All Tasks
+  generic-properties:
+    properties:
+      initializeTelemetry: false
+  default-serialization-format: application/json
+  authorization:
+    enabled: true
 
 spring.security.user:
   name:     demo
