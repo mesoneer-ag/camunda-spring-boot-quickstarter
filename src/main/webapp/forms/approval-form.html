@@ -35,11 +35,12 @@ embedded:app:forms/approval-form.html
   <div class="form-group">
     <label for="approvalType" class="col-sm-2 control-label">Approve?</label>
     <div class="col-sm-10">
-          <select cam-variable-name="approvalType"
-                  cam-variable-type="String">
-            <option>MANUALLY_APPROVED</option>
-            <option>MANUALLY_DECLINED</option>
-          </select>
+      <select required cam-variable-name="approvalType"
+              cam-variable-type="String">
+        <option value="" selected>Please make a choice</option>
+        <option value="MANUALLY_APPROVED">MANUALLY_APPROVED</option>
+        <option value="MANUALLY_DECLINED">MANUALLY_DECLINED</option>
+      </select>
     </div>
   </div>
 
