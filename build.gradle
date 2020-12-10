@@ -28,7 +28,7 @@ bootJar {
 
 ext {
     camundaVersionCE = "7.14.0"
-    camundaVersionEE = "7.14.1-ee"
+    camundaVersionEE = "7.14.2-ee"
 }
 
 repositories {
@@ -70,7 +70,7 @@ dependencies {
 
     // Java 11 missing modules
     implementation "javax.activation:javax.activation-api:1.2.0"
-    implementation "jakarta.xml.bind:jakarta.xml.bind-api:3.0.0"
+    implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3"
     implementation "org.glassfish.jaxb:jaxb-runtime:2.3.3"
     
     testImplementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-test:${camundaVersionCE}"
