@@ -59,7 +59,6 @@ dependencies {
 
     implementation "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:${camundaVersionCE}"
     implementation "org.springframework.boot:spring-boot-starter-jdbc"
-    implementation "org.springframework.boot:spring-boot-starter-security"
 
     implementation "org.camunda.spin:camunda-spin-dataformat-all"
     implementation "org.camunda.bpm:camunda-engine-plugin-spin"
