@@ -71,3 +71,6 @@ camunda-db.trace.db
 
 gradle.properties
 **/camunda-license.txt
+
+# logging
+/logs

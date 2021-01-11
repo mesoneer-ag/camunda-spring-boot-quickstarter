@@ -1,12 +1,18 @@
-camunda.bpm.admin-user:
-  id:       demo
-  password: demo
-
-spring.security.user:
-  name:     demo
-  password: demo
+camunda.bpm:
+  admin-user:
+    id: demo
+    password: demo
+  filter:
+    create: All Tasks
+  generic-properties:
+    properties:
+      initializeTelemetry: false
+  default-serialization-format: application/json
+  authorization:
+    enabled: true
 
 spring.datasource:
   url: jdbc:h2:./camunda-db
   username: sa
   password: sa
+
