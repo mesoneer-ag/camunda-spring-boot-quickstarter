@@ -1,5 +1,6 @@
 # camunda-spring-boot-quickstarter
 Dockerized quick-start template for a Camunda EE 7.15.0 Spring Boot process applications with Gradle.
+Includes the Camunda cockpit history plugin from https://github.com/datakurre/camunda-cockpit-plugins 
 Support for Camunda process testing including process test coverage report for non Sprint Boot tests.
 H2 database is used as the default database. Configuration for postgres is provided and can be enabled if needed. 
 
@@ -21,6 +22,8 @@ abcdeOluEJmmJIacJIgdizbHQVM8LRxMswO+bbsx9v95QAfnRC+l1o=;
 Your Name;unlimited
 --------------- END CAMUNDA BPM LICENSE KEY ---------------
 ```
+When using the enterprise edition, remove the history cockpit plugin files. 
+
 
 ### Camunda BPM Community Edition (CE)
 For Camunda CE version update *build.gradle* accordingly and remove 
