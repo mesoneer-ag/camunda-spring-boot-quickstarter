@@ -16,11 +16,14 @@
  */
 
 export default {
-  // customScripts: [
+   customScripts: [
   //   // If you have a folder called 'my-custom-script' (in the 'cockpit' folder)
   //   // with a file called 'customScript.js' in it
   //   // 'my-custom-script/customScript'
-  // ],
+      'scripts/definition-historic-activities.js',
+      'scripts/instance-historic-activities.js',
+      'scripts/instance-route-history.js'
+   ],
    locales: {
      availableLocales: ['en', 'de'],
      fallbackLocale: 'en'
