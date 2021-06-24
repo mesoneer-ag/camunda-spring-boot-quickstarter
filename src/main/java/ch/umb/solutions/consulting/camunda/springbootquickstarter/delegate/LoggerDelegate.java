@@ -1,11 +1,16 @@
 package ch.umb.solutions.consulting.camunda.springbootquickstarter.delegate;
 
+
+import ch.umb.solutions.consulting.camunda.springbootquickstarter.domain.Bar;
+import ch.umb.solutions.consulting.camunda.springbootquickstarter.domain.Foo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import static ch.umb.solutions.consulting.camunda.springbootquickstarter.ProcessVariables.VAR_FOO;
 import static ch.umb.solutions.consulting.camunda.springbootquickstarter.ProcessVariables.VAR_LOGMESSAGE;
 
 /**
@@ -28,6 +33,15 @@ public class LoggerDelegate implements JavaDelegate {
                 + ", processInstanceId=" + execution.getProcessInstanceId()
                 + ", businessKey=" + execution.getProcessBusinessKey()
                 + ", executionId=" + execution.getId());
+
+        Bar bar = new Bar(true,5);
+        Foo foo = new Foo("foobar", 5, bar);
+
+        try {
+            VAR_FOO.set(execution, foo);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
 }
