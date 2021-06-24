@@ -11,5 +11,14 @@
         <property name="idGenerator">
             <bean class="org.camunda.bpm.engine.impl.persistence.StrongUuidGenerator"/>
         </property>
+        <property name="defaultSerializationFormat" value="application/json" />
+
+
+        <property name="processEnginePlugins">
+            <list>
+                <bean id="spinPlugin"
+                  class="org.camunda.spin.plugin.impl.SpinProcessEnginePlugin" />
+            </list>
+        </property>
     </bean>
 </beans>
