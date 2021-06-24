@@ -1,9 +1,15 @@
 package ch.umb.solutions.consulting.camunda.helper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.camunda.bpm.engine.delegate.VariableScope;
 import org.camunda.spin.plugin.variable.SpinValues;
 
 public class ProcessVariable<T> {
+
+    private Class<T> typeParameterClass;
+
+    private ObjectMapper jacksonObjectMapper = new ObjectMapper();
 
     private String variableName;
 
@@ -42,8 +48,14 @@ public class ProcessVariable<T> {
         }
     }
 
-    public void set(VariableScope variableScope, T variableValue) {
-        variableScope.setVariable(variableName, variableValue);
+    public void set(VariableScope variableScope, T variableValue) throws JsonProcessingException {
+        if (typeParameterClass == null) {
+            variableScope.setVariable(variableName, variableValue);
+        } else {
+            var serializedValue = jacksonObjectMapper.writeValueAsString(variableValue);
+            var jsonValue = SpinValues.jsonValue(serializedValue).create();
+            variableScope.setVariable(variableName, jsonValue);
+        }
     }
 
 
