@@ -49,6 +49,27 @@ public class ProcessVariable<T> {
     }
 
     public void set(VariableScope variableScope, T variableValue) throws JsonProcessingException {
+        /**
+         *  for enums it' seems it might be a little bit more complicated
+         *  if we directly save the enum the bpmn seems to work fine:
+         *
+         *  --> ${baz2 == "TWO"} works fine as gateway condition
+         *  --> ${baz == "TWO"} returns always false
+         *
+         *  therefore we should not save enums as JSON.
+         *
+         *  if we do something like this: execution.setVariable("approvalType", "AUTO_APPROVED") within the bpmn, the approvalType is obviously saved as String
+         *  therefore we can not cast it back to an enum within a delegate..
+         *
+         *
+         *  a possible solution would be to check if the typeParameterClass is an enum
+         *  if so, save it normally, otherwise keep it the way it is...
+         *
+         *  if we get the variable now, we should check again if the typeParameterClass is an enum.
+         *  if so, either directly cast it to the enum type, or (if it's saved as String), manually get the corresponding enum type (Enum.valueOf ...)
+         *
+         */
+
         if (typeParameterClass == null) {
             variableScope.setVariable(variableName, variableValue);
         } else {

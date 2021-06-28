@@ -2,6 +2,7 @@ package ch.umb.solutions.consulting.camunda.springbootquickstarter.delegate;
 
 
 import ch.umb.solutions.consulting.camunda.springbootquickstarter.domain.Bar;
+import ch.umb.solutions.consulting.camunda.springbootquickstarter.domain.Baz;
 import ch.umb.solutions.consulting.camunda.springbootquickstarter.domain.Foo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -10,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import static ch.umb.solutions.consulting.camunda.springbootquickstarter.ProcessVariables.VAR_BAZ;
+import static ch.umb.solutions.consulting.camunda.springbootquickstarter.ProcessVariables.VAR_BAZ2;
+import static ch.umb.solutions.consulting.camunda.springbootquickstarter.ProcessVariables.VAR_BAZ3;
 import static ch.umb.solutions.consulting.camunda.springbootquickstarter.ProcessVariables.VAR_FOO;
 import static ch.umb.solutions.consulting.camunda.springbootquickstarter.ProcessVariables.VAR_LOGMESSAGE;
 
@@ -25,6 +29,7 @@ public class LoggerDelegate implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) {
         String logMessage = VAR_LOGMESSAGE.get(execution);
+
         logger.info("logMessage='" + logMessage + "'"
                 + ", processDefinitionName=" + execution.getProcessEngineServices().getRepositoryService().getProcessDefinition(execution.getProcessDefinitionId()).getName()
                 + ", processDefinitionId=" + execution.getProcessDefinitionId()
@@ -39,9 +44,11 @@ public class LoggerDelegate implements JavaDelegate {
 
         try {
             VAR_FOO.set(execution, foo);
+            VAR_BAZ.set(execution, Baz.TWO);
+            VAR_BAZ2.set(execution, Baz.TWO);
+            VAR_BAZ3.set(execution, Baz.TWO.name());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
     }
-
 }
