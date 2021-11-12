@@ -27,8 +27,8 @@ bootJar {
 }
 
 ext {
-    camundaVersionCE = "7.15.0"
-    camundaVersionEE = "7.15.0-ee"
+    camundaVersionCE = "7.16.0"
+    camundaVersionEE = "7.16.0-ee"
 }
 
 repositories {
